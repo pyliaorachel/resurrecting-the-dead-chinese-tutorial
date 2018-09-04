@@ -2,7 +2,7 @@ import numpy as np
 import torch
 
 
-def parse_corpus(path, seq_length=50):
+def parse_corpus(path, seq_length=20):
     '''Parse raw corpus text into input-output pairs, where input is a sequence of characters, output is 1 character after the sequence'''
 
     # Read text
