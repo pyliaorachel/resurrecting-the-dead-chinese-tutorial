@@ -27,30 +27,20 @@ def train(model, optimizer, epoch, data):
 
     # Run over a number of batches
     for batch_i, (seq_in, target) in enumerate(data):
-        '''
-            STEP 2.2: Clear gradients stored in parameters
-                Zero out the gradients of the parameters in the optimizer.
-                Look up official doc for `torch.optim.Optimizer`.
-        '''
-        # CODE STARTS
-
-        # CODE ENDS
+        # Clear gradients stored in parameters
+        optimizer.zero_grad()
 
         # Predict output with model
         output = model(seq_in)
 
-        # Compute loss
+        # Calculate cross entropy loss between output and target
         loss = F.cross_entropy(output, target)
 
-        '''
-            STEP 2.3: Backpropagate loss to each parameter in network; update parameters with the optimizer
-                With the loss computed, backpropagate it through the network and to compute gradients for each parameter.
-                Then update the parameters with the optimizer.
-        '''
-        # CODE STARTS
+        # Backpropagate loss to each parameter in network
+        loss.backward()
 
-
-        # CODE ENDS
+        # Update parameters with the optimizer
+        optimizer.step()
 
         # Log training status every 10 batches
         if batch_i % 10 == 0:
@@ -85,16 +75,8 @@ if __name__ == '__main__':
     # Create model
     model = Net(len(chars), args.embedding_dim, args.hidden_dim)
 
-    '''
-        STEP 2.1: Create optimizer
-            Create an Adam optimizer with the learning rate specified in `args`.
-            Look up official doc for `torch.optim.Adam`.
-
-            Replace `None` within CODE STARTS and CODE ENDS with your answers.
-    '''
-    # CODE STARTS
-    optimizer = None
-    # CODE ENDS
+    # Create optimizer
+    optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
 
     # Train for a number of epochs
     for epoch in range(args.epochs):
