@@ -3,8 +3,6 @@ import pickle
 
 import numpy as np
 import torch
-import torch.nn.functional as F
-from torch.autograd import Variable
 
 
 def load_pickle(path):
@@ -35,7 +33,7 @@ def gen_text(model, patterns, char_to_int, int_to_char, chars, n_sent=10, restar
         seq_in = np.array(pattern)
         seq_in = seq_in.reshape(1, -1) # batch_size = 1
 
-        seq_in = Variable(torch.LongTensor(seq_in))
+        seq_in = torch.LongTensor(seq_in)
 
         # Predict next character
         pred = model(seq_in)

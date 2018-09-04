@@ -24,7 +24,6 @@ def train(model, optimizer, epoch, data, log_interval):
     model.train()
 
     for batch_i, (seq_in, target) in enumerate(data):
-        seq_in, target = Variable(seq_in), Variable(target)
         optimizer.zero_grad()
 
         output = model(seq_in)
@@ -34,7 +33,7 @@ def train(model, optimizer, epoch, data, log_interval):
 
         # Log training status
         if batch_i % log_interval == 0:
-            print('Train epoch: {} ({:2.0f}%)\tLoss: {:.6f}'.format(epoch, 100. * batch_i / len(data), loss.data[0]))
+            print('Train epoch: {} ({:2.0f}%)\tLoss: {:.6f}'.format(epoch, 100. * batch_i / len(data), loss.item()))
 
 if __name__ == '__main__':
     # Parse arguments
